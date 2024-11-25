@@ -17,11 +17,11 @@ jobs:
 
       - name: Build frontend
         working-directory: herafy-client
-        run: docker build -t mariomafdy/frontend .
+        run: docker build -f Dockerfile1 -t mariomafdy/frontend .
 
       - name: Build backend
         working-directory: herafy-back-end
-        run: docker build -t mariomafdy/backend .
+        run: docker build -f Dockerfile -t mariomafdy/backend .
 
 
       - name: Push the frontend Image
