@@ -31,4 +31,4 @@ jobs:
         run: docker push mariomafdy/backend
 
       - name: Run Docker Compose
-        run: docker-compose up --build -d
+        run: docker-compose up --build -d 
