@@ -16,14 +16,12 @@ jobs:
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} 
 
       - name: Build frontend
-        run: |
-          cd herafy-client
-          docker build -t mariomafdy/frontend .
+        working-directory: grad_project/herafy-client
+        run: docker build -t mariomafdy/frontend .
 
       - name: Build backend
-        run: |
-          cd herafy-back-end
-          docker build -t mariomafdy/backend .
+        working-directory: grad_project/herafy-back-end
+        run: docker build -t mariomafdy/backend .
 
 
       - name: Push the frontend Image
