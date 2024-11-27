@@ -16,7 +16,7 @@ jobs:
 
       - name: Build frontend
         working-directory: herafy-client
-        run: docker build -f Dockerfile1 -t mariomafdy/frontend .
+        run: docker build -f Dockerfile1 -t mariomafdy/frontend:latest .
 
   #deploy frontend image to dockerhup
 
@@ -33,7 +33,7 @@ jobs:
 
       - name: Push the frontend Image
         working-directory: herafy-client
-        run: docker push mariomafdy/frontend
+        run: docker push mariomafdy/frontend:latest
 
   #build backend image in app by docker
 
@@ -45,7 +45,7 @@ jobs:
 
       - name: Build backend
         working-directory: herafy-back-end
-        run: docker build -f Dockerfile -t mariomafdy/backend .
+        run: docker build -f Dockerfile -t mariomafdy/backend:latest .
 
   #deploy backend image to dockerhup
 
@@ -63,7 +63,7 @@ jobs:
 
       - name: Push the backend Image
         working-directory: herafy-back-end
-        run: docker push mariomafdy/backend
+        run: docker push mariomafdy/backend:latest
 
   # run-docker-compose:
   #   runs-on: self-hosted
