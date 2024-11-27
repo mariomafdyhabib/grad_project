@@ -43,7 +43,7 @@ jobs:
       # - name: Run Docker Compose
       #   run: docker-compose up --build -d 
   run-docker-compose:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: 
       - build-and-deploy-frontend
       - build-and-deploy-backend
