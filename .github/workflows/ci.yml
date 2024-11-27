@@ -42,3 +42,20 @@ jobs:
 
       # - name: Run Docker Compose
       #   run: docker-compose up --build -d 
+  run-docker-compose:
+    runs-on: ubuntu-latest
+    needs: 
+      - build-and-deploy-frontend
+      - build-and-deploy-backend
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Docker Compose
+        run: |
+          sudo apt update
+          sudo apt install -y docker-compose
+
+      - name: Run Docker Compose
+        run: |
+          docker compose up
