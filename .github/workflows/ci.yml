@@ -5,7 +5,7 @@ on:
     branches: [main]
 
 jobs:
-  build-and-deploy:
+  build-and-deploy-frontend:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,16 +19,22 @@ jobs:
         working-directory: herafy-client
         run: docker build -f Dockerfile1 -t mariomafdy/frontend .
 
+      - name: Push the frontend Image
+        run: docker push mariomafdy/frontend
+
+
+  build-and-deploy-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
       - name: Build backend
         working-directory: herafy-back-end
         run: docker build -f Dockerfile -t mariomafdy/backend .
 
-
-      - name: Push the frontend Image
-        run: docker push mariomafdy/frontend
-
       - name: Push the backend Image
         run: docker push mariomafdy/backend
 
-      - name: Run Docker Compose
-        run: docker-compose up --build -d 
+      # - name: Run Docker Compose
+      #   run: docker-compose up --build -d 
