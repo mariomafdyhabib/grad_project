@@ -36,7 +36,7 @@ jobs:
 
   #build backend image in app by docker
 
-  build--backend:
+  build-backend:
     runs-on: ubuntu-latest
 
     steps:
