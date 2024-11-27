@@ -32,6 +32,7 @@ jobs:
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} 
 
       - name: Push the frontend Image
+        working-directory: herafy-client
         run: docker push mariomafdy/frontend
 
   #build backend image in app by docker
@@ -61,6 +62,7 @@ jobs:
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} 
 
       - name: Push the backend Image
+        working-directory: herafy-back-end
         run: docker push mariomafdy/backend
 
   # run-docker-compose:
