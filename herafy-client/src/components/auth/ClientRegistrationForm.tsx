@@ -29,7 +29,7 @@ function ClientRegistrationForm() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/users/register",
+        "http://57d6e0a8122c.mylabserver.com:30082/api/users/register",
         {
           name,
           email,
