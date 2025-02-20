@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app-front
+  template:
+    metadata:
+      labels:
+        app: my-app-front
+    spec:
+      containers:
+      - name: frontend
+        image: mariomafdy/frontend:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: REACT_APP_BACKEND_URL
+          value: "http://57d6e0a8122c.mylabserver.com:30083"
