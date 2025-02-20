@@ -18,7 +18,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         const token = localStorage.getItem("token");
 
         const response = await axios.get(
-          `http://localhost:7000/api/proposals/job/${id}`,
+          `http://57d6e0a8122c.mylabserver.com:30083/api/proposals/job/${id}`,
           {
             headers: {
               "x-auth-token": token,
