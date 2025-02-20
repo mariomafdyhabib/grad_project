@@ -75,10 +75,10 @@ const JobSearch = () => {
         // });
 
         const [jobsResponse, proposalsResponse] = await Promise.all([
-          axios.get("http://localhost:7000/api/jobs", {
+          axios.get("http://57d6e0a8122c.mylabserver.com:30083/api/jobs", {
             headers: { "x-auth-token": token },
           }),
-          axios.get("http://localhost:7000/api/proposals/craftsman", {
+          axios.get("http://57d6e0a8122c.mylabserver.com:30083/api/proposals/craftsman", {
             headers: { "x-auth-token": token },
           }),
         ]);
