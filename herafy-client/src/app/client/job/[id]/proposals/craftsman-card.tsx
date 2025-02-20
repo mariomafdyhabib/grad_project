@@ -21,7 +21,7 @@ const CraftsmanCard = ({ craftsmanId }: { craftsmanId: string }) => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `http://localhost:7000/api/users/craftsman/${craftsmanId}`,
+          `http://57d6e0a8122c.mylabserver.com:30083/api/users/craftsman/${craftsmanId}`,
           {
             headers: {
               "x-auth-token": token,
