@@ -47,7 +47,7 @@ const ClientDashboard = () => {
         const token = localStorage.getItem("token");
 
         const response = await axios.get(
-          "http://localhost:7000/api/jobs/client",
+          "http://57d6e0a8122c.mylabserver.com:30083/api/jobs/client",
           {
             headers: {
               "x-auth-token": token,
