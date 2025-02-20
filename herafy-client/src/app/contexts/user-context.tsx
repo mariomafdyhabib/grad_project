@@ -33,7 +33,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       if (token) {
         try {
           const response = await axios.get(
-            "http://localhost:7000/api/users/me",
+            "http://57d6e0a8122c.mylabserver.com:30083/api/users/me",
             {
               headers: { "x-auth-token": token },
             },
