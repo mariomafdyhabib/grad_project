@@ -23,7 +23,7 @@ const SendProposalForm = ({ params }: { params: { id: string } }) => {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        "http://localhost:7000/api/proposals",
+        "http://57d6e0a8122c.mylabserver.com:30083/api/proposals",
         {
           jobId,
           message,
