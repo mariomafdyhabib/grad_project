@@ -41,7 +41,7 @@ const Page = () => {
         const token = localStorage.getItem("token");
 
         const response = await axios.get(
-          "http://localhost:7000/api/proposals/craftsman",
+          "http://57d6e0a8122c.mylabserver.com:30083/api/proposals/craftsman",
           {
             headers: {
               "x-auth-token": token,
