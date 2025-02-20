@@ -26,7 +26,7 @@ const ProposalComponent = ({
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:7000/api/proposals/${proposal._id}/addrating`,
+        `http://57d6e0a8122c.mylabserver.com:30083/api/proposals/${proposal._id}/addrating`,
         { rating },
         {
           headers: {
