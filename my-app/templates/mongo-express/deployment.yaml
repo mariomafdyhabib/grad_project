@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-express
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-express
+  template:
+    metadata:
+      labels:
+        app: mongo-express
+    spec:
+      containers:
+        - name: mongo-express
+          image: "{{ .Values.mongoExpress.image.repository }}:{{ .Values.mongoExpress.image.tag }}"
+          ports:
+            - containerPort: 8081
+          env:
+            - name: ME_CONFIG_MONGODB_ADMINUSERNAME
+              value: {{ .Values.mongoExpress.env.adminUser | quote }}
+            - name: ME_CONFIG_MONGODB_ADMINPASSWORD
+              value: {{ .Values.mongoExpress.env.adminPassword | quote }}
+            - name: ME_CONFIG_MONGODB_SERVER
+              value: "mongodb"
