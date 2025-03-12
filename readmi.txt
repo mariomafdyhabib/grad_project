@@ -1,2 +1,6 @@
 #ay7aga
 #test
+helm install my-app ./my-app \
+  --set global.host=57d6e0a8122c.mylabserver.com \
+  --set mongodb.auth.password=password \
+  --set mongoExpress.env.adminPassword=password
