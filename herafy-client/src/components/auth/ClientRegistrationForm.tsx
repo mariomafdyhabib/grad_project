@@ -30,7 +30,7 @@ function ClientRegistrationForm() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://${hostname}/api/users/register",
+        `http://${hostname}/api/users/register`,
         {
           name,
           email,
