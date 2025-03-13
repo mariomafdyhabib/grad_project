@@ -69,11 +69,11 @@ const JobSearch = () => {
     const fetchJobs = async () => {
       const token = localStorage.getItem("token");
       try {
-        // const response = await axios.get("http://localhost:7000/api/jobs", {
-        //   headers: {
-        //     "x-auth-token": token,
-        //   },
-        // });
+        const response = await axios.get(`http://${hostname}/api/jobs`, {
+          headers: {
+            "x-auth-token": token,
+          },
+        });
 
         const [jobsResponse, proposalsResponse] = await Promise.all([
           axios.get(`http://${hostname}/api/jobs`, {
