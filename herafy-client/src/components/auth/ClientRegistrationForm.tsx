@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { translateServerMessage } from "@/utils/utils";
 import { useUser } from "@/app/contexts/user-context";
-import { hostname } from "../../../global"
+import { hostname } from "@/global"
 
 function ClientRegistrationForm() {
   const router = useRouter();
