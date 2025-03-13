@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select";
 import { translateServerMessage } from "@/utils/utils";
 import { jobCategories, jobDurations } from "@/lib/placehoder-data";
+import { hostname } from "@/utils/globals"
 
 const PostJobForm = () => {
   const router = useRouter();
@@ -34,7 +35,7 @@ const PostJobForm = () => {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        "http://localhost:7000/api/jobs",
+        `http://${hostname}/api/jobs`,
         {
           title,
           description,

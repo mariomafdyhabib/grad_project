@@ -17,6 +17,7 @@ import Link from "next/link";
 import { Textarea } from "@/components/ui/textarea";
 import { translateServerMessage } from "@/utils/utils";
 import { useUser } from "@/app/contexts/user-context";
+import { hostname } from "@/utils/globals"
 
 function CraftsmanRegistrationForm() {
   const router = useRouter();
@@ -33,7 +34,7 @@ function CraftsmanRegistrationForm() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/users/register",
+        `http://${hostname}/api/users/register`,
         {
           name,
           email,

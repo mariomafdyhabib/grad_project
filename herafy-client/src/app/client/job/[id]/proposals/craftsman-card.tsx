@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import StarRating from "./star-component";
 import { Stars } from "lucide-react";
+import { hostname } from "@/utils/globals"
 
 type Craftsman = {
   name: string;
@@ -21,7 +22,7 @@ const CraftsmanCard = ({ craftsmanId }: { craftsmanId: string }) => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          `http://localhost:7000/api/users/craftsman/${craftsmanId}`,
+          `http://${hostname}/api/users/craftsman/${craftsmanId}`,
           {
             headers: {
               "x-auth-token": token,

@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { hostname } from "@/utils/globals"
 
 const SendProposalForm = ({ params }: { params: { id: string } }) => {
   const { id: jobId } = params;
@@ -23,7 +24,7 @@ const SendProposalForm = ({ params }: { params: { id: string } }) => {
       const token = localStorage.getItem("token");
 
       const response = await axios.post(
-        "http://localhost:7000/api/proposals",
+        `http://${hostname}/api/proposals`,
         {
           jobId,
           message,

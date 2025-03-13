@@ -5,6 +5,7 @@ import axios from "axios";
 import { ProposalWithCraftsman as Proposal } from "@/lib/types";
 import ProposalComponent from "./Proposal";
 import CraftsmanCard from "./craftsman-card";
+import { hostname } from "@/utils/globals"
 
 const Page = ({ params }: { params: { id: string } }) => {
   const { id } = params;
@@ -18,7 +19,7 @@ const Page = ({ params }: { params: { id: string } }) => {
         const token = localStorage.getItem("token");
 
         const response = await axios.get(
-          `http://localhost:7000/api/proposals/job/${id}`,
+          `http://${hostname}/api/proposals/job/${id}`,
           {
             headers: {
               "x-auth-token": token,

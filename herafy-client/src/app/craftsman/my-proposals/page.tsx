@@ -6,6 +6,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { translateServerMessage } from "@/utils/utils";
 import { Proposal } from "@/lib/types";
+import { hostname } from "@/utils/globals"
 
 const propsalStatus = {
   pending: "لم يتم التحديد",
@@ -41,7 +42,7 @@ const Page = () => {
         const token = localStorage.getItem("token");
 
         const response = await axios.get(
-          "http://localhost:7000/api/proposals/craftsman",
+          `http://${hostname}/api/proposals/craftsman`,
           {
             headers: {
               "x-auth-token": token,

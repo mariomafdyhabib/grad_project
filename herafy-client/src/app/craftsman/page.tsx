@@ -8,6 +8,7 @@ import { jobCategories, jobDurations } from "@/lib/placehoder-data";
 import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { Label } from "@/components/ui/label";
+import { hostname } from "@/utils/globals"
 
 const JobComponent = ({
   job,
@@ -75,10 +76,10 @@ const JobSearch = () => {
         // });
 
         const [jobsResponse, proposalsResponse] = await Promise.all([
-          axios.get("http://localhost:7000/api/jobs", {
+          axios.get(`http://${hostname}/api/jobs`, {
             headers: { "x-auth-token": token },
           }),
-          axios.get("http://localhost:7000/api/proposals/craftsman", {
+          axios.get(`http://${hostname}/api/proposals/craftsman`, {
             headers: { "x-auth-token": token },
           }),
         ]);

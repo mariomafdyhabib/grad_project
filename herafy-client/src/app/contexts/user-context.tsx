@@ -8,6 +8,7 @@ import {
   ReactNode,
 } from "react";
 import axios from "axios";
+import { hostname } from "@/utils/globals"
 
 type User = {
   name: string;
@@ -33,7 +34,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
       if (token) {
         try {
           const response = await axios.get(
-            "http://localhost:7000/api/users/me",
+            `http://${hostname}/api/users/me`,
             {
               headers: { "x-auth-token": token },
             },

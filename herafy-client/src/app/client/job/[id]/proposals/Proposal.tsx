@@ -6,6 +6,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { ProposalWithCraftsman as Proposal } from "@/lib/types";
 import RatingDialog from "./rating-daialog";
+import { hostname } from "@/utils/globals"
 
 const propsalStatus = {
   pending: "لم يتم التحديد",
@@ -26,7 +27,7 @@ const ProposalComponent = ({
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        `http://localhost:7000/api/proposals/${proposal._id}/addrating`,
+        `http://${hostname}/api/proposals/${proposal._id}/addrating`,
         { rating },
         {
           headers: {

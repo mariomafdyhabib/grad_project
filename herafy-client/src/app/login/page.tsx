@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { translateServerMessage } from "@/utils/utils";
 import { useUser } from "../contexts/user-context";
+import { hostname } from "@/utils/globals"
 
 function LoginForm() {
   const router = useRouter();
@@ -28,7 +29,7 @@ function LoginForm() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/users/login",
+        "http://${hostname}/api/users/login",
         {
           email,
           password,

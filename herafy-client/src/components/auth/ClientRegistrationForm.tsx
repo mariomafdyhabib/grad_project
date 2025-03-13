@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { translateServerMessage } from "@/utils/utils";
 import { useUser } from "@/app/contexts/user-context";
+import { hostname } from "@/utils/globals"
 
 function ClientRegistrationForm() {
   const router = useRouter();
@@ -29,7 +30,7 @@ function ClientRegistrationForm() {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:7000/api/users/register",
+        `http://${hostname}/api/users/register`,
         {
           name,
           email,

@@ -6,6 +6,7 @@ import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { translateServerMessage } from "@/utils/utils";
 import { Job } from "@/lib/types";
+import { hostname } from "@/utils/globals"
 
 const JobComponent = ({ job }: { job: Job }) => {
   return (
@@ -47,7 +48,7 @@ const ClientDashboard = () => {
         const token = localStorage.getItem("token");
 
         const response = await axios.get(
-          "http://localhost:7000/api/jobs/client",
+          `http://${hostname}/api/jobs/client`,
           {
             headers: {
               "x-auth-token": token,
