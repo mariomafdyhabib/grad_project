@@ -123,3 +123,11 @@ prometheus-node-exporter:
     - key: "node.kubernetes.io/unschedulable"
       operator: "Exists"
       effect: "NoSchedule"
+
+# values.yaml
+persistentVolumes:
+  enabled: true
+  prometheus:
+    size: 8Gi
+  alertmanager:
+    size: 2Gi

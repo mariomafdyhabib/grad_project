@@ -1,0 +1,33 @@
+# my-app/templates/pv/monitoring-pvs.yaml
+{{- if .Values.prometheus.enabled }}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: prometheus-pv
+annotations:
+    "helm.sh/hook": pre-install
+    "helm.sh/hook-weight": "0"
+spec:
+  capacity:
+    storage: {{ .Values.prometheus.server.persistentVolume.size | default "8Gi" }}
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: /mnt/prometheus
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: alertmanager-pv
+spec:
+  capacity:
+    storage: {{ .Values.alertmanager.persistentVolume.size | default "2Gi" }}
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: /mnt/alertmanager
+{{- end }}
