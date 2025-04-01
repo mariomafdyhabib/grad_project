@@ -62,3 +62,43 @@ nginx:
     httpsPort: 443
     httpNodePort: 30080
     httpsNodePort: 30443
+
+# Monitoring
+prometheus:
+  enabled: true
+  server:
+    persistentVolume:
+      enabled: true
+      size: 8Gi
+    resources:
+      limits:
+        memory: 4Gi
+      requests:
+        cpu: 500m
+        memory: 2Gi
+    service:
+      type: NodePort
+      nodePort: 30900
+
+grafana:
+  enabled: true
+  adminUser: admin
+  adminPassword: "grafana-secret"
+  service:
+    type: NodePort
+    nodePort: 30901
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-server:80
+        access: proxy
+        isDefault: true
+  dashboards:
+    default:
+      todo-dashboard:
+        gnetId: 1860
+        revision: 2
+        datasource: Prometheus
