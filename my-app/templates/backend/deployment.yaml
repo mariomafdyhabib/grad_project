@@ -11,12 +11,18 @@ spec:
     metadata:
       labels:
         app: {{ include "backend.fullname" . }}
+      annotations:  # <-- Add this block
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9100"  # Update to your app's metrics port
+        prometheus.io/path: "/metrics"
     spec:
       containers:
         - name: backend
           image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
           ports:
             - containerPort: 7000
+            - name: metrics
+              containerPort: 9100
           env:
             - name: MONGODB_URI
               value: {{ .Values.backend.env.mongoUri | quote }}

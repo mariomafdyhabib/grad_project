@@ -11,12 +11,18 @@ spec:
     metadata:
       labels:
         app: {{ include "frontend.fullname" . }}
+      annotations:  # <-- Add this block
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9100"  # Update to your app's metrics port
+        prometheus.io/path: "/metrics"
     spec:
       containers:
         - name: frontend
           image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}"
           ports:
             - containerPort: 3000
+            - name: metrics        # <-- Add metrics port
+              containerPort: 9100
           env:
             - name: REACT_APP_BACKEND_URL
               value: {{ .Values.frontend.env.backendUrl | quote }}
