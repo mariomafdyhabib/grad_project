@@ -87,9 +87,16 @@ spec:
         app: prometheus
     spec:
       serviceAccountName: prometheus
+      securityContext:
+        fsGroup: 2000  # Ensures write permissions
+        runAsUser: 1000
+        runAsNonRoot: true
       containers:
       - name: prometheus
         image: prom/prometheus:latest
+        securityContext:
+          allowPrivilegeEscalation: false
+          readOnlyRootFilesystem: true
         ports:
         - containerPort: 9090
         volumeMounts:
@@ -130,6 +137,7 @@ spec:
   storageClassName: manual
   hostPath:
     path: /mnt/prometheus
+    type: DirectoryOrCreate  
 ---
 apiVersion: v1
 kind: Service
