@@ -88,9 +88,8 @@ spec:
     spec:
       serviceAccountName: prometheus
       securityContext:
-        fsGroup: 65534  # Match Prometheus user group
-        runAsUser: 65534
-        runAsNonRoot: true
+        runAsUser: 0  # Temporary root access
+        runAsGroup: 0
       containers:
       - name: prometheus
         image: prom/prometheus:latest
@@ -108,7 +107,9 @@ spec:
       initContainers:
       - name: fix-permissions
         image: busybox
-        command: ["sh", "-c", "chown -R 65534:65534 /prometheus"]
+        command: ["sh", "-c", "chown -R 65534:65534 /prometheus && chmod -R 755 /prometheus"]
+        securityContext:
+          runAsUser: 0
         volumeMounts:
         - name: storage-volume
           mountPath: /prometheus
@@ -129,7 +130,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi
   storageClassName: manual
 ---
 apiVersion: v1
@@ -144,7 +145,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: manual
   hostPath:
-    path: /mnt/prometheus
+    path: /mnt/prometheus-new
     type: DirectoryOrCreate  
 ---
 apiVersion: v1
