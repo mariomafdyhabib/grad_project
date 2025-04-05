@@ -67,6 +67,12 @@ nginx:
 prometheus:
   enabled: true
   server:
+    securityContext:
+      fsGroup: 1000
+      runAsUser: 1000
+      runAsGroup: 1000
+    persistentVolume:
+      mountPath: /data
     persistentVolume:
       storageClass: "manual"
     resources:
