@@ -80,6 +80,6 @@ spec:
   selector:
     app: grafana
   ports:
-    - port: 3000
-      nodePort: 30085
+    - protocol: TCP
+      port: 3000
       targetPort: 3000
