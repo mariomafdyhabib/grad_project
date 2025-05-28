@@ -1,15 +1,14 @@
-{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: my-app-ingress
   annotations:
-    {{- toYaml .Values.ingress.annotations | nindent 4 }}
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/scheme: internet-facing
+  name: todo-app-ingress
 spec:
-  ingressClassName: {{ .Values.ingress.className }}
+  ingressClassName: alb
   rules:
-  - host: {{ .Values.global.host }}
-    http:
+  - http:
       paths:
       - path: /
         pathType: Prefix
@@ -17,12 +16,18 @@ spec:
           service:
             name: {{ include "frontend.fullname" . }}
             port:
-              number: {{ .Values.frontend.service.port }}
+              number: 3000
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: {{ include "backend.fullname" . }}
+            port:
+              number: 7000
       - path: /mongo-express
         pathType: Prefix
         backend:
           service:
             name: mongo-express
             port:
-              number: {{ .Values.mongoExpress.service.port }}
-{{- end }}
+              number: 8081

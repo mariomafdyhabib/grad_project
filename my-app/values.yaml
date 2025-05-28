@@ -11,7 +11,7 @@ frontend:
     port: 3000
     nodePort: 30082
   env:
-    backendUrl: "http://{{ .Values.global.host }}:30083"
+    backendUrl: "http://{{ .Values.global.host }}:7000"
 
 backend:
   replicaCount: 1
@@ -19,7 +19,7 @@ backend:
     repository: mariomafdy/backend
     tag: latest
   service:
-    type: NodePort
+    type: ClusterIP
     port: 7000
     nodePort: 30083
   env:
@@ -29,7 +29,7 @@ backend:
 mongodb:
   persistence:
     enabled: true
-    storageClass: "manual"
+    storageClass: "gp2"
     size: 1Gi
   auth:
     username: admin
@@ -55,10 +55,10 @@ ingress:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
 
-nginx:
-  service:
-    type: NodePort
-    httpPort: 80
-    httpsPort: 443
-    httpNodePort: 30080
-    httpsNodePort: 30443
+# nginx:
+#   service:
+#     type: NodePort
+#     httpPort: 80
+#     httpsPort: 443
+#     httpNodePort: 30080
+#     httpsNodePort: 30443
