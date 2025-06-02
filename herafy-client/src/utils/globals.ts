@@ -1,1 +1,1 @@
-export const hostname: string = "localhost:30083";
+export const hostname: string = "57d6e0a8122c.mylabserver.com:30083";
