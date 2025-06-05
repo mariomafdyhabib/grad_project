@@ -1,1 +1,1 @@
-export const hostname: string = "localhost:7000";
+export const hostname: string = "app.7erafy.online/api";
