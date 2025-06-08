@@ -1,0 +1,12 @@
+#ay7aga
+#test
+helm install my-app ./my-app \
+  --set global.host=57d6e0a8122c.mylabserver.com \
+  --set mongodb.auth.password=password \
+  --set mongoExpress.env.adminPassword=password
+# aws eks --region us-east-2 update-kubeconfig --name Mario-eks-cluster
+
+eksctl utils associate-iam-oidc-provider \
+  --cluster Mario-eks-cluster \
+  --region us-east-2 \
+  --approve

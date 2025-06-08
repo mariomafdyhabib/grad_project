@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "backend.fullname" . }}
+spec:
+  replicas: {{ .Values.backend.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "backend.fullname" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "backend.fullname" . }}
+    spec:
+      containers:
+        - name: backend
+          image: "{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}"
+          imagePullPolicy: {{ .Values.backend.image.pullPolicy }}
+
+          ports:
+            - containerPort: 7000
+          env:
+            - name: MONGODB_URI
+              value: {{ .Values.backend.env.mongoUri | quote }}
+            - name: PORT
+              value: {{ .Values.backend.env.port | quote }}

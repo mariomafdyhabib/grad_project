@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-express
+spec:
+  type: {{ .Values.mongoExpress.service.type }}
+  ports:
+    - port: {{ .Values.mongoExpress.service.port }}
+      nodePort: {{ .Values.mongoExpress.service.nodePort }}
+      targetPort: 8081
+  selector:
+    app: mongo-express

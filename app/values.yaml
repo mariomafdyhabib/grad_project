@@ -1,0 +1,84 @@
+global:
+  host: ""  # Internal hostname (optional)
+
+# Frontend Service (ClusterIP)
+frontend:
+  replicaCount: 1
+  image:
+    repository: mariomafdy/frontend
+    tag: latest
+    pullPolicy: Always
+  service:
+    type: ClusterIP  # Internal only
+    port: 3000
+  env:
+    backendUrl: "/api"  # Relative path to backend via Ingress
+
+# Backend Service (ClusterIP)
+backend:
+  replicaCount: 1
+  image:
+    repository: mariomafdy/backend
+    tag: latest
+    pullPolicy: Always
+  service:
+    type: ClusterIP  # Internal only
+    port: 7000
+  env:
+    port: "7000"
+    mongoUri: "mongodb://admin:password@mongodb:27017/todo?authSource=admin"
+
+# MongoDB (unchanged)
+mongodb:
+  persistence:
+    enabled: true
+    storageClass: "gp2"
+    size: 1Gi
+  auth:
+    username: admin
+    password: password
+
+# MongoExpress (ClusterIP)
+mongoExpress:
+  enabled: true
+  image:
+    repository: mongo-express
+    tag: latest
+  service:
+    type: ClusterIP  # Internal only
+    port: 8081
+  env:
+    adminUser: admin
+    adminPassword: password
+
+ingress:
+  enabled: true
+  name: mainlb
+  className: alb
+  hosts:
+    - host: 7erafy.online
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: my-full-app-frontend
+              port:
+                number: 3000
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: my-full-app-backend
+              port:
+                number: 7000
+        - path: /mongo
+          pathType: Prefix
+          backend:
+            service:
+              name: mongo-express
+              port:
+                number: 8081
+
+
+
