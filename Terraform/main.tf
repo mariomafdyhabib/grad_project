@@ -311,4 +311,31 @@ resource "helm_release" "aws_load_balancer_controller" {
       }
     })
   ]
+  # set {
+  #   name  = "clusterName"
+  #   value = "Mario-eks-cluster"
+  # }
+
+  # set {
+  #   name  = "region"
+  #   value = "us-east-2"
+  # }
+  # set {
+  #   name  = "vpcId"
+  #   value = module.vpc.vpc_id
+  # }
+
+  # set {
+  #   name  = "serviceAccount.create"
+  #   value = "false"
+  # }
+
+  # set {
+  #   name  = "serviceAccount.name"
+  #   value = kubernetes_service_account.aws_load_balancer_controller_sa.metadata[0].name
+  # }
+
+  # depends_on = [
+  #   kubernetes_service_account.aws_load_balancer_controller_sa
+  # ]
 }

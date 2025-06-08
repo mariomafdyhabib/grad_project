@@ -10,3 +10,40 @@ eksctl utils associate-iam-oidc-provider \
   --cluster Mario-eks-cluster \
   --region us-east-2 \
   --approve
+
+# 17119 , 15760 # grafana dashboard
+
+# install prometheus and grafana
+
+helm repo add stable https://charts.helm.sh/stable
+
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+
+kubectl create namespace prometheus
+
+helm install stable prometheus-community/kube-prometheus-stack -n prometheus
+
+kubectl get pods -n prometheus
+
+kubectl get svc -n prometheus
+
+kubectl edit svc stable-kube-prometheus-sta-prometheus -n prometheus
+
+# change it from Cluster IP to LoadBalancer after changing make sure you save the file
+
+kubectl get svc -n prometheus
+
+# I have a load balancer for my Prometheus which I can access from that link port 9090
+
+kubectl edit svc stable-grafana -n prometheus
+
+# the Grafana LoadBalancer also exposed
+
+kubectl get svc -n prometheus
+
+# admin
+
+kubectl get secret --namespace prometheus stable-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+# output is password
+
