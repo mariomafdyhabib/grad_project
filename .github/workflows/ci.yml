@@ -58,7 +58,7 @@ jobs:
       - name: Test Backend Docker cache
         uses: docker/build-push-action@v5
         with:
-          context: ./herafy-client
+          context: ./herafy-back-end
           file: ./herafy-back-end/Dockerfile
           push: false
           tags: mariomafdy/backend:test
