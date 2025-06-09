@@ -55,7 +55,7 @@ jobs:
       - name: Push the backend Image
         run: docker push mariomafdy/backend:latest
 
-      - name: Build and push backend image with local cache
+      - name: Build and push backend image with caching
         uses: docker/build-push-action@v5
         with:
           context: ./herafy-back-end
