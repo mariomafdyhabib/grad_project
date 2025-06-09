@@ -50,10 +50,7 @@ resource "helm_release" "my_chart" {
     value = "us-east-2"
   }
   
-  # set {
-  #   name  = "nginx.service.httpPort"
-  #   value = "80"
-  # }
+
   timeout = 600
 }
 
@@ -90,11 +87,6 @@ module "eks" {
   kubernetes_version  = "1.33" 
 }
 
-# data "aws_eks_cluster" "cluster" {
-#   name = module.eks.cluster_name
-# }
-
-
 
 module "nodegroup" {
   source = "./NodeGroup_Module"
@@ -107,11 +99,7 @@ module "nodegroup" {
   min_size            = 1
 }
 
-# resource "aws_iam_openid_connect_provider" "oidc_provider" {
-#   client_id_list  = ["sts.amazonaws.com"]
-#   thumbprint_list = ["9e99a48a9960b14926bb7f3b02e22da0ecd4e4e4"]  # Amazon Root CA thumbprint
-#   url             = module.eks.cluster_name.identity[0].oidc[0].issuer
-# }
+
 
 module "ec2_instance" {
   source           = "./EC2_Module"
@@ -123,94 +111,6 @@ module "ec2_instance" {
   instance_name    = "Mario-EC2-Bastion "
 }
 
-
-# data "aws_iam_policy_document" "alb_assume_role" {
-#   statement {
-#     effect = "Allow"
-
-#     principals {
-#       type        = "Federated"
-#       identifiers = [aws_iam_openid_connect_provider.oidc_provider.arn]
-#     }
-
-#     actions = ["sts:AssumeRoleWithWebIdentity"]
-
-#     condition {
-#       test     = "StringEquals"
-#       variable = "${replace(aws_iam_openid_connect_provider.oidc_provider.url, "https://", "")}:sub"
-#       values   = ["system:serviceaccount:kube-system:aws-load-balancer-controller"]
-#     }
-#   }
-# }
-
-# provider "kubernetes" {
-#   host                   = data.aws_eks_cluster.cluster.endpoint
-#   cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority[0].data)
-#   token                  = data.aws_eks_cluster_auth.cluster.token
-# }
-
-
-# data "aws_eks_cluster" "cluster" {
-#   name = "Mario-eks-cluster"
-# }
-
-# data "aws_eks_cluster_auth" "cluster" {
-#   name = "Mario-eks-cluster"
-# }
-
-
-# resource "helm_release" "aws_lb_controller" {
-#   name       = "aws-load-balancer-controller"
-#   repository = "https://aws.github.io/eks-charts"
-#   chart      = "aws-load-balancer-controller"
-#   namespace  = "kube-system"
-#   version    = "1.7.1"  # Check for latest version
-#   depends_on = [kubernetes_service_account.alb_sa]
-
-#   set {
-#     name  = "clusterName"
-#     value = "Mario-eks-cluster"  # Your EKS cluster name
-#   }
-
-#   set {
-#     name  = "region"
-#     value = "us-east-2"
-#   }
-
-#   set {
-#     name  = "vpcId"
-#     value = module.vpc.vpc_id  # Replace with your VPC ID
-#   }
-
-#   # Optional, for IAM permissions (assumes IRSA or similar)
-#   set {
-#     name  = "serviceAccount.create"
-#     value = "false"
-#   }
-#   set {
-#     name  = "serviceAccount.name"
-#     value = "aws-load-balancer-controller"
-#   }
-# }
-
-# resource "aws_iam_role" "alb_sa_role" {
-#   name = "alb-controller-role"
-#   assume_role_policy = data.aws_iam_policy_document.alb_assume_role.json
-# }
-
-# resource "kubernetes_service_account" "alb_sa" {
-#   metadata {
-#     name      = "aws-load-balancer-controller"
-#     namespace = "kube-system"
-#     annotations = {
-#       "eks.amazonaws.com/role-arn" = aws_iam_role.alb_sa_role.arn
-#     }
-#   }
-# }
-
-# data "aws_eks_cluster" "cluster" {
-#   name = module.eks.cluster_name
-# }
 
 resource "aws_iam_openid_connect_provider" "oidc_provider" {
   url = module.eks.cluster_oidc_issuer_url
@@ -224,18 +124,6 @@ resource "aws_iam_openid_connect_provider" "oidc_provider" {
   }
 }
 
-
-# data "aws_iam_openid_connect_provider" "oidc" {
-#   url = module.eks.cluster_oidc_issuer_url
-# }
-
-# data "aws_eks_cluster_auth" "cluster_auth" {
-#   name = module.eks.cluster_name
-# }
-
-# data "aws_iam_openid_connect_provider" "oidc" {
-#   url = module.eks.cluster_name.cluster.identity[0].oidc[0].issuer
-# }
 
 provider "kubernetes" {
   host                   = module.eks.cluster_endpoint
@@ -311,31 +199,4 @@ resource "helm_release" "aws_load_balancer_controller" {
       }
     })
   ]
-  # set {
-  #   name  = "clusterName"
-  #   value = "Mario-eks-cluster"
-  # }
-
-  # set {
-  #   name  = "region"
-  #   value = "us-east-2"
-  # }
-  # set {
-  #   name  = "vpcId"
-  #   value = module.vpc.vpc_id
-  # }
-
-  # set {
-  #   name  = "serviceAccount.create"
-  #   value = "false"
-  # }
-
-  # set {
-  #   name  = "serviceAccount.name"
-  #   value = kubernetes_service_account.aws_load_balancer_controller_sa.metadata[0].name
-  # }
-
-  # depends_on = [
-  #   kubernetes_service_account.aws_load_balancer_controller_sa
-  # ]
 }
