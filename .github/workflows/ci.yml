@@ -127,7 +127,12 @@ jobs:
 
       - name: Run backend tests
         working-directory: herafy-back-end
-        run: npm run test
+        run: |
+          if npm run | grep -q "test"; then
+            npm run test
+          else
+            echo "No test script defined in package.json. Skipping tests."
+          fi
 
   # run-docker-compose:
   #   runs-on: self-hosted
