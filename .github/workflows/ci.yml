@@ -1,8 +1,8 @@
-name: Build and Deploy Docker Image
+name: END TO END DEVOPS
 
 on:
   push:
-    branches: [main]
+    branches: [deployment]
 
 jobs:
   build-and-deploy-frontend:
@@ -10,6 +10,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Registry
         run: |
@@ -21,6 +24,18 @@ jobs:
 
       - name: Push the frontend Image
         run: docker push mariomafdy/frontend:latest
+        
+      - name: Test frontend Docker cache
+        uses: docker/build-push-action@v5
+        with:
+          context: ./herafy-client
+          file: ./herafy-client/Dockerfile1
+          push: false
+          tags: mariomafdy/frontend:test
+          cache-from: type=registry,ref=mariomafdy/frontend:cache
+          cache-to: type=registry,ref=mariomafdy/frontend:cache,mode=max
+
+
   
 
   build-and-deploy-backend:
@@ -39,6 +54,66 @@ jobs:
 
       - name: Push the backend Image
         run: docker push mariomafdy/backend:latest
+
+      - name: Test backend Docker layer cache
+        uses: docker/build-push-action@v5
+        with:
+          context: ./herafy-back-end
+          file: ./herafy-back-end/Dockerfile
+          push: false
+          tags: mariomafdy/backend:test
+          cache-from: type=registry,ref=mariomafdy/backend:cache
+          cache-to: type=registry,ref=mariomafdy/backend:cache,mode=max
+
+  test-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Restore npm cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            frontend/node_modules
+          key: frontend-build-${{ hashFiles('frontend/package-lock.json') }}
+          restore-keys: |
+            frontend-build-
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Run frontend tests
+        working-directory: frontend
+        run: npm run test
+
+  test-backend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Restore npm cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.npm
+            herafy-back-end/node_modules
+          key: backend-build-${{ hashFiles('herafy-back-end/package-lock.json') }}
+          restore-keys: |
+            backend-build-
+
+      - name: Install dependencies
+        working-directory: herafy-back-end
+        run: npm install
+
+      - name: Run backend tests
+        working-directory: herafy-back-end
+        run: npm run test
 
   # run-docker-compose:
   #   runs-on: self-hosted
