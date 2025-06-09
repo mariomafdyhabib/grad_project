@@ -162,7 +162,7 @@ jobs:
         terraform apply --auto-approve
 
   terraform:
-    if: startsWith(github.event.head_commit.message, 'terraform apply')
+    # if: startsWith(github.event.head_commit.message, 'terraform apply')
     runs-on: ubuntu-latest
     needs: 
       - initializing-infra
@@ -188,7 +188,7 @@ jobs:
         terraform apply --auto-approve
   
   monitor:
-    # if: github.event.head_commit.message == 'k8s deploy'
+    if: github.event.head_commit.message == 'k8s deploy'
     runs-on: ubuntu-latest
     needs: 
       - terraform

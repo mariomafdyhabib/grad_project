@@ -6,47 +6,47 @@ on:
 
 jobs:
 
-  monitor:
-    if: startsWith(github.event.head_commit.message, 'terraform destroy')
-    runs-on: ubuntu-latest
-    # defaults:
-    #   run:
-    #     working-directory: k8s
+#   monitor:
+#     if: startsWith(github.event.head_commit.message, 'destroy')
+#     runs-on: ubuntu-latest
+#     # defaults:
+#     #   run:
+#     #     working-directory: k8s
 
     
       
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
 
-    - name: Setup kubectl
-      uses: azure/setup-kubectl@v3
-      with:
-        version: "v1.33.0"
+#     - name: Setup kubectl
+#       uses: azure/setup-kubectl@v3
+#       with:
+#         version: "v1.33.0"
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
+#     - name: Configure AWS credentials
+#       uses: aws-actions/configure-aws-credentials@v1
+#       with:
+#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#         aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
-    - name: Update kubeconfig
-      run: aws eks update-kubeconfig --name hr-stag-eksdemo1 --region ${{ secrets.AWS_DEFAULT_REGION }}
+#     - name: Update kubeconfig
+#       run: aws eks update-kubeconfig --name hr-stag-eksdemo1 --region ${{ secrets.AWS_DEFAULT_REGION }}
 
 
-    - name: Delete helm clusters
-      run: |
-        helm uninstall stable -n prometheus
-        helm uninstall my-helm-app
-        helm uninstall aws-load-balancer-controller -n kube-system
+#     - name: Delete helm clusters
+#       run: |
+#         helm uninstall stable -n prometheus
+#         helm uninstall my-helm-app
+#         helm uninstall aws-load-balancer-controller -n kube-system
 
   terraform:
-    if: startsWith(github.event.head_commit.message, 'terraform destroy')
+    if: startsWith(github.event.head_commit.message, 'destroy')
     runs-on: ubuntu-latest
-    needs: 
-      - monitor
+    # needs: 
+    #   - monitor
     defaults:
       run:
         working-directory: infra
