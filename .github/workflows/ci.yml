@@ -55,15 +55,15 @@ jobs:
       - name: Push the backend Image
         run: docker push mariomafdy/backend:latest
 
-      - name: Build and push backend image with caching
+      - name: Test Backend Docker cache
         uses: docker/build-push-action@v5
         with:
-          context: ./herafy-back-end
+          context: ./herafy-client
           file: ./herafy-back-end/Dockerfile
-          push: true
-          tags: mariomafdy/backend:latest
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
+          push: false
+          tags: mariomafdy/backend:test
+          cache-from: type=registry,ref=mariomafdy/backend:cache
+          cache-to: type=registry,ref=mariomafdy/backend:cache,mode=max
 
   test-frontend:
     runs-on: ubuntu-latest
@@ -85,11 +85,11 @@ jobs:
             frontend-build-
 
       - name: Install dependencies
-        working-directory: frontend
+        working-directory: herafy-client
         run: npm install
 
       - name: Run frontend tests
-        working-directory: frontend
+        working-directory: herafy-client
         run: npm run test
 
   test-backend:
