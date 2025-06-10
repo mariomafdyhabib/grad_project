@@ -48,7 +48,7 @@ resource "helm_release" "my_chart" {
       }
     })
     
-  ]
+  ] 
    
   set {
     name  = "clusterName"
