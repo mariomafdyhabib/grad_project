@@ -20,7 +20,7 @@ provider "helm" {
 
 
 data "http" "chart_values" {
-  url = "https://github.com/mariomafdyhabib/grad_project/blob/deployment/app/values.yaml"
+  url = "https://raw.githubusercontent.com/mariomafdyhabib/grad_project/deployment/app/values.yaml"
 }
  
 resource "helm_release" "my_chart" {
@@ -48,7 +48,7 @@ resource "helm_release" "my_chart" {
       }
     })
     
-  ] 
+  ]  
    
   set {
     name  = "clusterName"
