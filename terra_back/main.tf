@@ -29,9 +29,10 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "terraform_state" 
 }
 
 resource "aws_dynamodb_table" "terraform_locks" {
-  name           = "7erafy-bucket"
-  hash_key       = "LockID"
-  billing_mode   = "PAY_PER_REQUEST"
+  name         = "terraform-locks" # or use a unique suffix
+  hash_key     = "LockID"
+  billing_mode = "PAY_PER_REQUEST"
+
   attribute {
     name = "LockID"
     type = "S"
@@ -41,4 +42,5 @@ resource "aws_dynamodb_table" "terraform_locks" {
     Name = "terraform-locks"
   }
 }
+
 
