@@ -18,6 +18,11 @@ provider "helm" {
   }
 }
 
+
+data "http" "chart_values" {
+  url = "https://github.com/mariomafdyhabib/grad_project/blob/deployment/app/values.yaml"
+}
+
 resource "helm_release" "my_chart" {
   name       = "my-helm-app"
   repository = "https://github.com/mariomafdyhabib/grad_project.git/deployment"
@@ -28,7 +33,7 @@ resource "helm_release" "my_chart" {
   # namespace  = "default"
   
   values = [
-    file("https://github.com/mariomafdyhabib/grad_project/blob/deployment/app/values.yaml"),
+    data.http.chart_values.response_body,
     # file("/home/mario/Desktop/grad_project/app/values.yaml"),
     yamlencode({
       global = {
