@@ -29,7 +29,7 @@ resource "helm_release" "my_chart" {
   chart      = "my-full-app"
   namespace  = "default"
 
-  # chart      = "/home/mario/Desktop/grad_project/app"  # local path to Helm chart 
+  # chart      = "/home/mario/Desktop/grad_project/app"  # local path to Helm chart  
   # namespace  = "default"
   
   values = [
