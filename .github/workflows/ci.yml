@@ -6,6 +6,7 @@ on:
 
 jobs:
   build-and-deploy-frontend:
+    if: startsWith(github.event.head_commit.message, 'apply')
     runs-on: ubuntu-latest
 
     steps:
@@ -39,6 +40,7 @@ jobs:
   
 
   build-and-deploy-backend:
+    if: startsWith(github.event.head_commit.message, 'apply')
     runs-on: ubuntu-latest
 
     steps:

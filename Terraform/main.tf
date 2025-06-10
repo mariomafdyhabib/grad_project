@@ -20,11 +20,16 @@ provider "helm" {
 
 resource "helm_release" "my_chart" {
   name       = "my-helm-app"
-  chart      = "/home/mario/Desktop/grad_project/app"  # local path to Helm chart
+  repository = "https://github.com/mariomafdyhabib/grad_project.git/deployment"
+  chart      = "app"
   namespace  = "default"
+
+  # chart      = "/home/mario/Desktop/grad_project/app"  # local path to Helm chart
+  # namespace  = "default"
   
   values = [
-    file("/home/mario/Desktop/grad_project/app/values.yaml"),
+    file("${path.module}/app/values.yaml"),
+    # file("/home/mario/Desktop/grad_project/app/values.yaml"),
     yamlencode({
       global = {
         host = replace(module.eks.cluster_endpoint, "https://", "")
