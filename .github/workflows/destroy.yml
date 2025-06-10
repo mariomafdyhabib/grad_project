@@ -71,3 +71,4 @@ jobs:
       run: |
         terraform init
         terraform destroy --auto-approve
+        
