@@ -45,11 +45,12 @@ jobs:
   terraform:
     if: startsWith(github.event.head_commit.message, 'destroy')
     runs-on: ubuntu-latest
-    # needs: 
-    #   - monitor
     defaults:
       run:
         working-directory: Terraform
+    # needs: 
+    #   - monitor
+    
 
     steps:
     - name: Checkout code
