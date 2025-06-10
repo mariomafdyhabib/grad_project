@@ -210,3 +210,12 @@ resource "helm_release" "aws_load_balancer_controller" {
     })
   ]
 }
+
+terraform {
+  backend "s3" {
+    bucket         = "7erafy-bucket"
+    key            = "terraform.tfstate"
+    region         = "us-east-2"
+    dynamodb_table = "terraform-locks" # optional but recommended for locking
+  }
+}
