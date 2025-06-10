@@ -110,7 +110,6 @@ module "nodegroup" {
 }
 
 
-
 module "ec2_instance" {
   source           = "./EC2_Module"
   ami_id           = data.aws_ami.ubuntu.id  # Replace with actual AMI ID
