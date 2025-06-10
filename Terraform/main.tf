@@ -28,7 +28,7 @@ resource "helm_release" "my_chart" {
   # namespace  = "default"
   
   values = [
-    file("https://github.com/mariomafdyhabib/grad_project.git/deployment/app/values.yaml"),
+    file("https://github.com/mariomafdyhabib/grad_project/blob/deployment/app/values.yaml"),
     # file("/home/mario/Desktop/grad_project/app/values.yaml"),
     yamlencode({
       global = {
