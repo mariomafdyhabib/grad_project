@@ -49,7 +49,7 @@ resource "helm_release" "my_chart" {
     })
     
   ]
-  
+   
   set {
     name  = "clusterName"
     value = "Mario-eks-cluster"
