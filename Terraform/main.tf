@@ -22,7 +22,7 @@ provider "helm" {
 data "http" "chart_values" {
   url = "https://github.com/mariomafdyhabib/grad_project/blob/deployment/app/values.yaml"
 }
-
+ 
 resource "helm_release" "my_chart" {
   name       = "my-helm-app"
   repository = "https://mariomafdyhabib.github.io/grad_project/"
