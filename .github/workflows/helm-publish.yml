@@ -35,4 +35,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./charts
           publish_branch: gh-pages
-  
+   
