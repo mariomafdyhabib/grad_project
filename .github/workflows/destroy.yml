@@ -49,7 +49,7 @@ jobs:
     #   - monitor
     defaults:
       run:
-        working-directory: infra
+        working-directory: Terraform
 
     steps:
     - name: Checkout code
