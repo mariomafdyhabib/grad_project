@@ -26,7 +26,7 @@ data "http" "chart_values" {
 resource "helm_release" "my_chart" {
   name       = "my-helm-app"
   repository = "https://mariomafdyhabib.github.io/grad_project/"
-  chart      = "app"
+  chart      = "my-full-app"
   namespace  = "default"
 
   # chart      = "/home/mario/Desktop/grad_project/app"  # local path to Helm chart
