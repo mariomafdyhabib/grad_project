@@ -102,4 +102,4 @@ jobs:
     - name: Delete the S3 bucket
       run: |
         BUCKET_NAME=7erafy-bucket
-        aws s3api delete-bucket --bucket $BUCKET_NAME --region us-east-1       
+        aws s3api delete-bucket --bucket $BUCKET_NAME --region us-east-1        
