@@ -85,10 +85,19 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_DEFAULT_REGION }}
 
-    - name: Delete all objects in the S3 bucket
+    - name: Delete all object versions and delete markers
       run: |
         BUCKET_NAME=7erafy-bucket
-        aws s3 rm s3://$BUCKET_NAME --recursive
+
+        # Delete all object versions
+        aws s3api list-object-versions --bucket $BUCKET_NAME --output json \
+        | jq -r '.Versions[]? | "aws s3api delete-object --bucket '"$BUCKET_NAME"' --key \(.Key) --version-id \(.VersionId)"' \
+        | bash
+
+        # Delete all delete markers
+        aws s3api list-object-versions --bucket $BUCKET_NAME --output json \
+        | jq -r '.DeleteMarkers[]? | "aws s3api delete-object --bucket '"$BUCKET_NAME"' --key \(.Key) --version-id \(.VersionId)"' \
+        | bash
 
     - name: Delete the S3 bucket
       run: |
