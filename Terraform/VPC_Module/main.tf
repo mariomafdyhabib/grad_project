@@ -73,7 +73,7 @@ resource "aws_subnet" "private" {
   depends_on = [
     null_resource.delete_enis
   ]
-  
+
 }
 
 # Create an Elastic IP for the NAT Gateway
@@ -113,4 +113,23 @@ resource "aws_route_table_association" "private_subnet_association" {
   count          = length(var.private_subnets)
   subnet_id      = aws_subnet.private[count.index].id
   route_table_id = aws_route_table.private_rt.id
+}
+
+resource "null_resource" "delete_enis" {
+  provisioner "local-exec" {
+    command = <<EOT
+      set -e
+      ENIs=$(aws ec2 describe-network-interfaces --filters Name=subnet-id,Values=${aws_subnet.private[1].id} \
+        --query 'NetworkInterfaces[*].NetworkInterfaceId' --output text)
+      for eni in $ENIs; do
+        echo "Deleting ENI: $eni"
+        aws ec2 delete-network-interface --network-interface-id $eni
+      done
+    EOT
+    interpreter = ["/bin/bash", "-c"]
+  }
+
+  triggers = {
+    subnet_id = aws_subnet.private[1].id
+  }
 }
