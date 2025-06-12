@@ -5,7 +5,6 @@ on:
     branches: [deployment]
 
 
-    
 jobs:
   build-and-deploy-frontend:
     if: startsWith(github.event.head_commit.message, 'apply')
