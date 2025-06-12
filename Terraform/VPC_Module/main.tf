@@ -141,3 +141,29 @@ resource "null_resource" "delete_enis" {
     interpreter = ["/bin/bash", "-c"]
   }
 }
+
+resource "null_resource" "delete_sgs" {
+  provisioner "local-exec" {
+    when = destroy
+    command = <<EOT
+      echo "Deleting non-default security groups in VPC $VPC_ID..."
+      SG_IDS=$(aws ec2 describe-security-groups \
+        --filters Name=vpc-id,Values=$VPC_ID \
+        --query 'SecurityGroups[?GroupName!=`default`].GroupId' \
+        --output text)
+
+      for sg in $SG_IDS; do
+        echo "Deleting security group $sg"
+        aws ec2 delete-security-group --group-id $sg || true
+      done
+    EOT
+    interpreter = ["/bin/bash", "-c"]
+    environment = {
+      VPC_ID = self.triggers.vpc_id
+    }
+  }
+
+  triggers = {
+    vpc_id = aws_vpc.Mario_VPC.id
+  }
+}
