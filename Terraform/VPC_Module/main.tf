@@ -115,12 +115,20 @@ resource "aws_route_table_association" "private_subnet_association" {
   route_table_id = aws_route_table.private_rt.id
 }
 
+variable "private_subnet_ids" {
+  type = list(string)
+  description = "List of private subnet IDs (manual list to avoid destroy-time reference)"
+  default = []  # Optional: or pass via `terraform.tfvars`
+}
+
 resource "null_resource" "delete_enis" {
+  for_each = toset(var.private_subnet_ids)
+
   provisioner "local-exec" {
     when = destroy
     command = <<EOT
-      set -e
-      ENIs=$(aws ec2 describe-network-interfaces --filters Name=subnet-id,Values=${aws_subnet.private[1].id} \
+      echo "Deleting ENIs in subnet ${each.key}..."
+      ENIs=$(aws ec2 describe-network-interfaces --filters Name=subnet-id,Values=${each.key} \
         --query 'NetworkInterfaces[*].NetworkInterfaceId' --output text)
       for eni in $ENIs; do
         echo "Deleting ENI: $eni"
@@ -128,9 +136,5 @@ resource "null_resource" "delete_enis" {
       done
     EOT
     interpreter = ["/bin/bash", "-c"]
-  }
-
-  triggers = {
-    subnet_id = aws_subnet.private[1].id
   }
 }
