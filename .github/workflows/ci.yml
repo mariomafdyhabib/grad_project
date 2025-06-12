@@ -234,7 +234,6 @@ jobs:
         kubectl patch svc stable-kube-prometheus-sta-prometheus -n prometheus -p '{"spec": {"type": "LoadBalancer"}}' && \
         kubectl patch svc stable-grafana -n prometheus -p '{"spec": {"type": "LoadBalancer"}}'
 
-
   # run-docker-compose:
   #   runs-on: self-hosted
   #   needs: 
