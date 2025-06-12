@@ -69,6 +69,11 @@ resource "aws_subnet" "private" {
     "kubernetes.io/role/internal-elb" = "1"
     "kubernetes.io/cluster/${var.cluster_name}"  = "shared"
   }
+
+  depends_on = [
+    null_resource.delete_enis
+  ]
+  
 }
 
 # Create an Elastic IP for the NAT Gateway
