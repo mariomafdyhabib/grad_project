@@ -117,6 +117,7 @@ resource "aws_route_table_association" "private_subnet_association" {
 
 resource "null_resource" "delete_enis" {
   provisioner "local-exec" {
+    when = destroy
     command = <<EOT
       set -e
       ENIs=$(aws ec2 describe-network-interfaces --filters Name=subnet-id,Values=${aws_subnet.private[1].id} \
