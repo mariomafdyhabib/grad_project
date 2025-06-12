@@ -41,6 +41,7 @@ jobs:
         helm uninstall stable -n prometheus
         helm uninstall aws-load-balancer-controller -n kube-system
 
+        
   terraform:
     if: startsWith(github.event.head_commit.message, 'destroy')
     runs-on: ubuntu-latest
