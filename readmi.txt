@@ -47,3 +47,6 @@ kubectl get secret --namespace prometheus stable-grafana -o jsonpath="{.data.adm
 
 # output is password
 
+# Grafana login:
+username : admin
+password : prom-operator
