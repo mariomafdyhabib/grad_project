@@ -142,6 +142,8 @@ resource "null_resource" "delete_enis" {
   }
 }
 
+variable "vpc_id_for_sg_cleanup" {}
+
 resource "null_resource" "delete_sgs" {
   provisioner "local-exec" {
     when = destroy
@@ -164,6 +166,6 @@ resource "null_resource" "delete_sgs" {
   }
 
   triggers = {
-    vpc_id = aws_vpc.Mario_VPC.id
+    vpc_id = var.vpc_id_for_sg_cleanup
   }
 }
