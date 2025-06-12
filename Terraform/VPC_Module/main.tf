@@ -6,6 +6,9 @@ resource "aws_vpc" "Mario_VPC" {
   tags = {
     Name = var.vpc_name
   }
+
+  depends_on = [null_resource.delete_sgs]
+
 }
 
 ########                         PUBLIC Creation                  **************
