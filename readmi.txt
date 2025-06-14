@@ -11,7 +11,7 @@ eksctl utils associate-iam-oidc-provider \
   --region us-east-2 \
   --approve
 
-# 17119 , 15760 # grafana dashboard
+# 17119 , 15760 # grafana dashboard 
 
 # install prometheus and grafana
 
