@@ -234,22 +234,3 @@ jobs:
         kubectl patch svc stable-kube-prometheus-sta-prometheus -n prometheus -p '{"spec": {"type": "LoadBalancer"}}' && \
         kubectl patch svc stable-grafana -n prometheus -p '{"spec": {"type": "LoadBalancer"}}'
 
-  # run-docker-compose:
-  #   runs-on: self-hosted
-  #   needs: 
-  #     - build-and-deploy-frontend
-  #     - build-and-deploy-backend
-
-  #   steps:
-  #     - uses: actions/checkout@v3
-
-  #     - name: Install Docker Compose
-  #       run: |
-  #         sudo apt update
-  #         sudo apt install -y docker-compose
-
-  #     - name: Build the docker-compose stack
-  #       run: docker-compose -f docker-compose.yml up -d
-  #     - name: Check running containers
-  #       run: docker ps -a
-      
