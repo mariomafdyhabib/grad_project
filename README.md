@@ -28,6 +28,7 @@ bash
 Copy
 Edit
 END-TO-END-DEVOPS/
+
 │
 ├── .github/workflows/         # GitHub Actions pipelines
 │   ├── apply.yaml             # Applies full infrastructure and deployments
