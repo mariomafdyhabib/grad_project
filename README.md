@@ -165,13 +165,13 @@ graph TD
     B --> D[Destroy Pipeline]
     B --> E[Helm Push Pipeline]
     
-    C --> F[Build]
-    F --> G[Frontend]
-    F --> G[Backend]
+    C --> FF[Build]
+    FF --> GG[Frontend]
+    FF --> GG[Backend]
 
-    C --> F[Test]
-    F --> G[Frontend]
-    F --> G[Backend]
+    C --> FG[Test]
+    FG --> GF[Frontend]
+    FG --> GF[Backend]
 
     C --> F[Terraform Apply]
     F --> G[AWS Infrastructure]
