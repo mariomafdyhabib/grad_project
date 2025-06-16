@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/729ae982-9395-4ce8-adfd-f5b2c7f4837e)
+
 🚀 END TO END DEVOPS
 A complete DevOps project demonstrating modern CI/CD practices and infrastructure provisioning from source to deployment using GitHub Actions, Docker, Kubernetes, Helm, and Terraform on AWS EKS.
 
