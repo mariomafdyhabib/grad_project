@@ -29,21 +29,37 @@ Copy
 Edit
 END-TO-END-DEVOPS/
 │
+
 ├── .github/workflows/         # GitHub Actions pipelines
+
 │   ├── apply.yaml             # Applies full infrastructure and deployments
+
 │   ├── destroy.yaml           # Destroys all resources
+
 │   └── push-helm-chart.yaml   # Pushes Helm chart to GitHub
+
 │
+
 ├── docker/                    # Dockerfiles for frontend and backend
+
 ├── docker-compose.yml         # For local testing
+
 │
+
 ├── helm/                      # Helm chart for Kubernetes deployment
+
 │
-├── k8s/                       # Raw Kubernetes manifests (pods, services, etc.)
+
+├── kubernetes/                       # Raw Kubernetes manifests (pods, services, etc.)
+
 │
+
 ├── terraform/                 # Terraform modules for AWS
+
 │
+
 └── README.md                  # Project documentation
+
 ⚙️ CI/CD Pipelines
 Pipeline Name	Description
 apply	Builds Docker images, pushes to Docker Hub, deploys infra & apps
