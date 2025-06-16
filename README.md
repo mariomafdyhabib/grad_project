@@ -28,7 +28,6 @@ bash
 Copy
 Edit
 END-TO-END-DEVOPS/
-
 │
 ├── .github/workflows/         # GitHub Actions pipelines
 │   ├── apply.yaml             # Applies full infrastructure and deployments
@@ -40,7 +39,7 @@ END-TO-END-DEVOPS/
 │
 ├── helm/                      # Helm chart for Kubernetes deployment
 │
-├── kubernetes/                       # Raw Kubernetes manifests (pods, services, etc.)
+├── k8s/                       # Raw Kubernetes manifests (pods, services, etc.)
 │
 ├── terraform/                 # Terraform modules for AWS
 │
