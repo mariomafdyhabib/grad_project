@@ -6,6 +6,7 @@ on:
 
 jobs:
 
+  
   monitor:
     if: startsWith(github.event.head_commit.message, 'destroy')
     runs-on: ubuntu-latest
