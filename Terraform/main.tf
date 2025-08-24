@@ -27,7 +27,7 @@ resource "helm_release" "my_chart" {
   name       = "my-helm-app"
   repository = "https://mariomafdyhabib.github.io/grad_project/"
   chart      = "my-full-app"
-  namespace  = "default"
+  namespace  =Managed Kubernetes services on AWS, GCP, Azure "default"
 
   # chart      = "/home/mario/Desktop/grad_project/app"  # local path to Helm chart  
   # namespace  = "default"
