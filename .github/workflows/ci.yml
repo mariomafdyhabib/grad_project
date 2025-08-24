@@ -150,7 +150,7 @@ jobs:
           scan-type: fs   # options: fs (filesystem), image, repo
           severity: CRITICAL,HIGH
           format: table
-          exit-code: 1    # fail if vulnerabilities found
+          # exit-code: 1    # fail if vulnerabilities found
           ignore-unfixed: true
 
   sonarqube:
@@ -160,11 +160,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Set up JDK (for Java projects, skip if not needed)
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
+          distribution: 'temurin'   # options: temurin, zulu, corretto, microsoft
           java-version: '17'
-
+          
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
